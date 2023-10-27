@@ -227,7 +227,7 @@ kafka-ui
 --------
         
           command: " java --add-opens java.rmi/javax.rmi.ssl=ALL-UNNAMED -cp /kafka-ui-api.jar -Dloader.path=/usr/share/java/cp-base-new/ org.springframework.boot.loader.PropertiesLauncher"
-		  environment:
+          environment:
             SERVER_PORT: 8443
             SERVER_SSL_KEY-STORE: /etc/ssl/certs/docker/kafka-ui1.jks
             SERVER_SSL_KEY-STORE-PASSWORD: dockerpw
