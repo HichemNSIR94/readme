@@ -214,7 +214,6 @@ modify the following block of the file cp-kafka/templates/_helpers.tpl as :
 
 Form the Advertised Listeners. We will use the value of nodeport.firstListenerPort to create the
 external advertised listeners if configurationOverrides.advertised.listeners is not set.
-*/}}
 {{- define "cp-kafka.configuration.advertised.listeners" }}
 {{- if (index .Values "configurationOverrides" "advertised.listeners") -}}
 {{- printf ",%s" (first (pluck "advertised.listeners" .Values.configurationOverrides)) }}
