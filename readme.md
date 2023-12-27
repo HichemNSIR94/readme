@@ -35,7 +35,19 @@ use the folowing command to create a base64 hashed parameter
 
 create the `ssl-kafka-jaas-secret.yaml` secret file and apply it 
 
+     vim ssl-kafka-jaas-secret.yaml
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: ssl-kafka-jaas-secret
+          type: Opaque
+        data:
+          SSL_KEY_PASSWORD: ZG9ja2VycHc=
+          SSL_KEYSTORE_PASSWORD: ZG9ja2VycHc=
+          SSL_TRUSTSTORE_PASSWORD: ZG9ja2VycHc=
+
      kubectl apply -f ssl-kafka-jaas-secret.yaml
+     
 kafka-client-jaas-secret
 ------------------------
 use the folowing command to create a base64 hashed parameter 
@@ -44,6 +56,16 @@ use the folowing command to create a base64 hashed parameter
     echo "[CLIENT_SECRET]" | base64 -d
 
 create the `kafka-client-jaas-secret.yaml` secret file and apply it 
+
+     vim kafka-client-jaas-secret.yaml
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: kafka-client-jaas-secret
+          type: Opaque
+        data:
+          CLIENT_ID: a2Fma2E=
+          CLIENT_SECRET: NzRWREtydXNwOGFUa0QzY0ZWbElZUzNzb3o3QUllWUE=
 
      kubectl apply -f kafka-client-jaas-secret.yaml
      
