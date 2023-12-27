@@ -23,6 +23,30 @@ Copy the following jars into your Kafka strimizi ouath volume that will be mount
     oauth-server/target/lib/json-smart-*.jar
     oauth-server/target/lib/accessors-smart-*.jar
 
+Create 2 new k8s secrets
+========================
+ssl-kafka-jaas-secret
+---------------------
+use the folowing command to create a base64 hashed parameter 
+
+    echo "[SSL_TRUSTSTORE_PASSWORD]" | base64 -d
+    echo "[SSL_KEYSTORE_PASSWORD]" | base64 -d
+    echo "[SSL_KEY_PASSWORD]" | base64 -d
+
+create the `ssl-kafka-jaas-secret.yaml` secret file and apply it 
+
+     kubectl apply -f ssl-kafka-jaas-secret.yaml
+kafka-client-jaas-secret
+------------------------
+use the folowing command to create a base64 hashed parameter 
+
+    echo "[CLIENT_ID]" | base64 -d
+    echo "[CLIENT_SECRET]" | base64 -d
+
+create the `kafka-client-jaas-secret.yaml` secret file and apply it 
+
+     kubectl apply -f kafka-client-jaas-secret.yaml
+     
 Configuration of kafka confluentinc per services
 ================================================
 cp-kafka
