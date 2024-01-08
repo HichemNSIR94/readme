@@ -257,16 +257,16 @@ modify the following block of the file cp-kafka/templates/statefulset.yaml as :
 
 
 modify the following block of the file cp-kafka/templates/_helpers.tpl as :
-
-Form the Advertised Listeners. We will use the value of nodeport.firstListenerPort to create the
-external advertised listeners if configurationOverrides.advertised.listeners is not set.
-{{- define "cp-kafka.configuration.advertised.listeners" }}
-{{- if (index .Values "configurationOverrides" "advertised.listeners") -}}
-{{- printf ",%s" (first (pluck "advertised.listeners" .Values.configurationOverrides)) }}
-{{- else -}}
-{{- printf ",REPLICATION://%s:$((%d + ${KAFKA_BROKER_ID}))" (include "cp-kafka.cp-kafka-headless.fullname" .) (.Values.nodeport.firstListenerPort | toString) }}
-{{- end -}}
-{{- end -}}
+        
+        Form the Advertised Listeners. We will use the value of nodeport.firstListenerPort to create the
+        external advertised listeners if configurationOverrides.advertised.listeners is not set.
+        {{- define "cp-kafka.configuration.advertised.listeners" }}
+        {{- if (index .Values "configurationOverrides" "advertised.listeners") -}}
+        {{- printf ",%s" (first (pluck "advertised.listeners" .Values.configurationOverrides)) }}
+        {{- else -}}
+        {{- printf ",REPLICATION://%s:$((%d + ${KAFKA_BROKER_ID}))" (include "cp-kafka.cp-kafka-headless.fullname" .) (.Values.nodeport.firstListenerPort | toString) }}
+        {{- end -}}
+        {{- end -}}
 
 cp-kafka-rest
 -------------
@@ -490,16 +490,16 @@ modify the following block of the file cp-ksql-server/templates/deployment.yaml 
 modify the following block of the file cp-ksql-server/templates/_helpers.tpl as:
 
 
-Form the Kafka URL. If Kafka is installed as part of this chart, use k8s service discovery,
-else use user-provided URL
-*/}}
-{{- define "cp-ksql-server.kafka.bootstrapServers" -}}
-{{- if .Values.kafka.bootstrapServers -}}
-{{- .Values.kafka.bootstrapServers -}}
-{{- else -}}
-{{- printf "SASL_SSL://%s:9092" (include "cp-ksql-server.cp-kafka-headless.fullname" .) -}}
-{{- end -}}
-{{- end -}}
+        Form the Kafka URL. If Kafka is installed as part of this chart, use k8s service discovery,
+        else use user-provided URL
+        */}}
+        {{- define "cp-ksql-server.kafka.bootstrapServers" -}}
+        {{- if .Values.kafka.bootstrapServers -}}
+        {{- .Values.kafka.bootstrapServers -}}
+        {{- else -}}
+        {{- printf "SASL_SSL://%s:9092" (include "cp-ksql-server.cp-kafka-headless.fullname" .) -}}
+        {{- end -}}
+        {{- end -}}
 
 
 cp-schema-registry
@@ -580,16 +580,16 @@ modify the following block of the file cp-schema-registry/templates/deployment.y
 
 modify the following block of the file cp-schema-registry/templates/_helpers.tpl as:
 
-Form the Kafka URL. If Kafka is installed as part of this chart, use k8s service discovery,
-else use user-provided URL
-*/}}
-{{- define "cp-schema-registry.kafka.bootstrapServers" -}}
-{{- if .Values.kafka.bootstrapServers -}}
-{{- .Values.kafka.bootstrapServers -}}
-{{- else -}}
-{{- printf "SASL_SSL://%s:9092" (include "cp-kafka-rest.cp-kafka-headless.fullname" .) -}}
-{{- end -}}
-{{- end -}}
+        Form the Kafka URL. If Kafka is installed as part of this chart, use k8s service discovery,
+        else use user-provided URL
+        */}}
+        {{- define "cp-schema-registry.kafka.bootstrapServers" -}}
+        {{- if .Values.kafka.bootstrapServers -}}
+        {{- .Values.kafka.bootstrapServers -}}
+        {{- else -}}
+        {{- printf "SASL_SSL://%s:9092" (include "cp-kafka-rest.cp-kafka-headless.fullname" .) -}}
+        {{- end -}}
+        {{- end -}}
 
 
 cp-control-center
